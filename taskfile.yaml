@@ -1,0 +1,30 @@
+version: '3'
+
+tasks:
+  run-api:
+    silent: true
+    cmds:
+      - echo "Running API"
+      - go run ./api/main.go
+
+  run-lambda:
+    silent: true
+    env:
+      _LAMBDA_SERVER_PORT: 8000
+    cmds:
+      - echo "Running lambda function"
+      - go run ./lambda/main.go
+
+  run-lambda-sigterm:
+    silent: true
+    env:
+      _LAMBDA_SERVER_PORT: 8000
+    cmds:
+      - echo "Running lambda function with SIGTERM enabled"
+      - go run ./lambda_sigterm/main.go
+
+  run-sigterm:
+    silent: true
+    cmds:
+      - echo "Running sigterm"
+      - bash ./kill.sh {{.PID}}
